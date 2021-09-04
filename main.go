@@ -13,21 +13,18 @@ func main() {
 		fmt.Println("Visiting", r.URL)
 	})
 
-	c.OnHTML("div.s-result-list.s-search-results.sg-row", func(e *colly.HTMLElement) {
-		e.ForEach("div.a-section.a-spacing-medium", func(_ int, e *colly.HTMLElement) {
-			var productName string
+	c.OnHTML("span.a-size-medium.a-color-price", func(e *colly.HTMLElement) {
+		// Goquery selection of the HTMLElement is in e.DOM
+		//goquerySelection := e.DOM
 
-			productName = e.ChildText("span.a-size-medium.a-color-base.a-text-normal")
-
-			if productName == "" {
-				// If we can't get any name, we return and go directly to the next element
-				return
-			}
-
-			fmt.Printf("Product Name: %s \n", productName)
-		})
+		// Example Goquery usage
+		//fmt.Println(e)
+		ch := e.DOM.Text()
+		fmt.Printf("test:%s", ch)
 	})
 
 	c.Visit("https://www.amazon.co.uk/PlayStation-9395003-5-Console/dp/B08H95Y452/ref=sr_1_3?dchild=1&keywords=ps5&qid=1630621564&sr=8-3")
+
+	//c.Visit("https://www.amazon.co.uk/Xbox-RRT-00007-Series-X/dp/B08H93GKNJ")
 
 }
